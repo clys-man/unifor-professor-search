@@ -155,7 +155,7 @@
 
   <body>
     <header>
-      <h1>Professores - Busca por Palavra-chave</h1>
+      <h1>Unifor - Buscar Professores</h1>
       <div
         style="
           max-width: 800px;
@@ -166,10 +166,12 @@
       >
         <p>
           Este sistema permite buscar professores da
-          <a href="https://unifor.br/">Unifor</a> e suas áreas de atuação a
-          partir de palavras-chave extraídas dos currículos Lattes. Basta
-          selecionar um curso, digitar uma palavra ou expressão no campo de
-          busca e visualizar os resultados filtrados.
+          <a href="https://unifor.br/" target="_blank"
+            >Universidade de Fortaleza (UNIFOR)</a
+          >
+          e suas áreas de atuação a partir de palavras-chave extraídas dos
+          currículos Lattes. Basta selecionar um curso, digitar uma palavra ou
+          expressão no campo de busca e visualizar os resultados filtrados.
         </p>
       </div>
       <p style="margin: 0.3rem 0 0 0; font-size: 0.9rem">
@@ -185,6 +187,7 @@
 
     <label for="curso">Selecione o curso:</label>
     <select id="curso">
+      <option value="">-------</option>
       <option value="ciencia_da_computacao">Ciência da Computação</option>
       <option value="engenharia_da_computacao">Engenharia de Computação</option>
     </select>
@@ -203,6 +206,23 @@
     </div>
 
     <div id="lista-professores"></div>
+
+    <footer
+      style="
+        margin-top: 2rem;
+        padding: 1rem;
+        text-align: center;
+        font-size: 0.85rem;
+        color: #777;
+      "
+    >
+      <p>
+        <strong>Aviso:</strong> Este site não possui qualquer vínculo com a
+        <a href="https://unifor.br/" target="_blank"
+          >Universidade de Fortaleza (UNIFOR)</a
+        >. Todo o conteúdo é de caráter informativo.
+      </p>
+    </footer>
 
     <script>
       const BASE_URL =
@@ -228,6 +248,8 @@
       }
 
       async function carregarProfessores(curso) {
+        if (!curso) return null;
+
         const url = `${BASE_URL}/${curso}/professores_keywords.json`;
         try {
           const response = await fetch(url);
