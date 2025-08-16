@@ -248,10 +248,21 @@
           .replace(/c/g, "[cç]");
       }
 
-      async function carregarProfessores(curso) {
-        if (!curso) return null;
+      async function carregarCursos() {
+        try {
+          const response = await fetch(`${BASE_URL}/cursos.json`);
+          if (!response.ok) throw new Error("Erro ao carregar cursos");
+          return await response.json();
+        } catch (error) {
+          console.error("❌ Erro ao carregar cursos.json", error);
+          return [];
+        }
+      }
 
-        const url = `${BASE_URL}/${curso}/professores_keywords.json`;
+      async function carregarProfessores(cursoSlug) {
+        if (!cursoSlug) return null;
+
+        const url = `${BASE_URL}/${cursoSlug}/professores.json`;
         try {
           const response = await fetch(url);
           if (!response.ok) return null;
@@ -302,31 +313,44 @@
           div.className = "professor";
           const htmlLimpo = prof.htmlCurriculo.replace(/<[^>]+>/g, " ");
           div.innerHTML = `
-          <h2>${destacarTermo(prof.nome, termos)}</h2>
-          <p><a href="${prof.curriculo}" target="_blank">Currículo Lattes</a></p>
-          ${termos.length ? `<div class="contexto">${extrairContexto(htmlLimpo, termos)}</div>` : ""}
-        `;
+            <h2>${destacarTermo(prof.nome, termos)}</h2>
+            <p><a href="${prof.curriculo}" target="_blank">Currículo Lattes</a></p>
+            ${
+              termos.length
+                ? `<div class="contexto">${extrairContexto(htmlLimpo, termos)}</div>`
+                : ""
+            }
+          `;
           lista.appendChild(div);
         });
       }
 
       (async () => {
-        let cursoAtual = document.getElementById("curso").value;
+        // 🔹 Carregar cursos dinamicamente
+        const cursos = await carregarCursos();
+        const select = document.getElementById("curso");
+
+        cursos.forEach((c) => {
+          const opt = document.createElement("option");
+          opt.value = c.slug;
+          opt.textContent = c.nome;
+          select.appendChild(opt);
+        });
+
+        let cursoAtual = select.value;
         let professores = await carregarProfessores(cursoAtual);
         renderizarLista(professores);
 
-        document
-          .getElementById("curso")
-          .addEventListener("change", async (e) => {
-            cursoAtual = e.target.value;
-            professores = await carregarProfessores(cursoAtual);
-            const termos = document
-              .getElementById("search")
-              .value.split(",")
-              .map((t) => t.trim())
-              .filter(Boolean);
-            renderizarLista(professores, termos);
-          });
+        select.addEventListener("change", async (e) => {
+          cursoAtual = e.target.value;
+          professores = await carregarProfessores(cursoAtual);
+          const termos = document
+            .getElementById("search")
+            .value.split(",")
+            .map((t) => t.trim())
+            .filter(Boolean);
+          renderizarLista(professores, termos);
+        });
 
         document.getElementById("search").addEventListener("input", (e) => {
           const termos = e.target.value

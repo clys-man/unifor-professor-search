@@ -1,0 +1,402 @@
+[
+  {
+    "nome": "Administração",
+    "url": "https://unifor.br/web/graduacao/administracao",
+    "slug": "administracao"
+  },
+  {
+    "nome": "Análise e Desenvolvimento de Sistemas",
+    "url": "https://unifor.br/web/graduacao/analise-e-desenvolvimento-de-sistema",
+    "slug": "analise_e_desenvolvimento_de_sistemas"
+  },
+  {
+    "nome": "Arquitetura e Urbanismo",
+    "url": "https://unifor.br/web/graduacao/arquitetura-e-urbanismo",
+    "slug": "arquitetura_e_urbanismo"
+  },
+  {
+    "nome": "Biomedicina",
+    "url": "https://unifor.br/web/graduacao/biomedicina",
+    "slug": "biomedicina"
+  },
+  {
+    "nome": "Cinema e Audiovisual",
+    "url": "https://unifor.br/web/graduacao/cinema-e-audiovisual",
+    "slug": "cinema_e_audiovisual"
+  },
+  {
+    "nome": "Ciência da Computação",
+    "url": "https://unifor.br/web/graduacao/ciencia-da-computacao",
+    "slug": "ciencia_da_computacao"
+  },
+  {
+    "nome": "Ciências Contábeis",
+    "url": "https://unifor.br/web/graduacao/ciencias-contabeis",
+    "slug": "ciencias_contabeis"
+  },
+  {
+    "nome": "Ciências Econômicas",
+    "url": "https://unifor.br/web/graduacao/ciencias-economicas",
+    "slug": "ciencias_economicas"
+  },
+  {
+    "nome": "Comércio Exterior",
+    "url": "https://unifor.br/web/graduacao/comercio-exterior",
+    "slug": "comercio_exterior"
+  },
+  {
+    "nome": "Design",
+    "url": "https://unifor.br/web/graduacao/design-bacharelado",
+    "slug": "design"
+  },
+  {
+    "nome": "Design de Interiores",
+    "url": "https://unifor.br/web/graduacao/design-de-interiores",
+    "slug": "design_de_interiores"
+  },
+  {
+    "nome": "Design de Moda",
+    "url": "https://unifor.br/web/graduacao/design-de-moda",
+    "slug": "design_de_moda"
+  },
+  {
+    "nome": "Direito",
+    "url": "https://unifor.br/web/graduacao/direito",
+    "slug": "direito"
+  },
+  {
+    "nome": "Educação Física",
+    "url": "https://unifor.br/web/graduacao/educacao-fisica",
+    "slug": "educacao_fisica"
+  },
+  {
+    "nome": "Enfermagem",
+    "url": "https://unifor.br/web/graduacao/enfermagem",
+    "slug": "enfermagem"
+  },
+  {
+    "nome": "Engenharia Civil",
+    "url": "https://unifor.br/web/graduacao/engenharia-civil",
+    "slug": "engenharia_civil"
+  },
+  {
+    "nome": "Engenharia Elétrica",
+    "url": "https://unifor.br/web/graduacao/engenharia-eletrica",
+    "slug": "engenharia_eletrica"
+  },
+  {
+    "nome": "Engenharia Mecânica",
+    "url": "https://unifor.br/web/graduacao/engenharia-mecanica",
+    "slug": "engenharia_mecanica"
+  },
+  {
+    "nome": "Engenharia da Computação",
+    "url": "https://unifor.br/web/graduacao/engenharia-da-computacao",
+    "slug": "engenharia_da_computacao"
+  },
+  {
+    "nome": "Engenharia de Produção",
+    "url": "https://unifor.br/web/graduacao/engenharia-de-producao",
+    "slug": "engenharia_de_producao"
+  },
+  {
+    "nome": "Estética e Cosmética",
+    "url": "https://unifor.br/web/graduacao/estetica-e-cosmetica",
+    "slug": "estetica_e_cosmetica"
+  },
+  {
+    "nome": "Farmácia",
+    "url": "https://unifor.br/web/graduacao/farmacia",
+    "slug": "farmacia"
+  },
+  {
+    "nome": "Finanças",
+    "url": "https://unifor.br/web/graduacao/financas",
+    "slug": "financas"
+  },
+  {
+    "nome": "Fisioterapia",
+    "url": "https://unifor.br/web/graduacao/fisioterapia",
+    "slug": "fisioterapia"
+  },
+  {
+    "nome": "Fonoaudiologia",
+    "url": "https://unifor.br/web/graduacao/fonoaudiologia",
+    "slug": "fonoaudiologia"
+  },
+  {
+    "nome": "Jornalismo",
+    "url": "https://unifor.br/web/graduacao/jornalismo",
+    "slug": "jornalismo"
+  },
+  {
+    "nome": "Marketing",
+    "url": "https://unifor.br/web/graduacao/marketing",
+    "slug": "marketing"
+  },
+  {
+    "nome": "Marketing",
+    "url": "https://unifor.br/web/graduacao/marketing-bacharelado",
+    "slug": "marketing"
+  },
+  {
+    "nome": "Medicina Veterinária",
+    "url": "https://unifor.br/web/graduacao/medicina-veterinaria",
+    "slug": "medicina_veterinaria"
+  },
+  {
+    "nome": "Moda",
+    "url": "https://unifor.br/web/graduacao/moda-bacharelado",
+    "slug": "moda"
+  },
+  {
+    "nome": "Negócios",
+    "url": "https://unifor.br/web/graduacao/negocios",
+    "slug": "negocios"
+  },
+  {
+    "nome": "Nutrição",
+    "url": "https://unifor.br/web/graduacao/nutricao",
+    "slug": "nutricao"
+  },
+  {
+    "nome": "Odontologia",
+    "url": "https://unifor.br/web/graduacao/odontologia",
+    "slug": "odontologia"
+  },
+  {
+    "nome": "Psicologia",
+    "url": "https://unifor.br/web/graduacao/psicologia",
+    "slug": "psicologia"
+  },
+  {
+    "nome": "Publicidade e Propaganda",
+    "url": "https://unifor.br/web/graduacao/publicidade-e-propaganda",
+    "slug": "publicidade_e_propaganda"
+  },
+  {
+    "nome": "Terapia Ocupacional",
+    "url": "https://unifor.br/web/graduacao/terapia-ocupacional",
+    "slug": "terapia_ocupacional"
+  },
+  {
+    "nome": "Energias Renováveis",
+    "url": "https://unifor.br/web/graduacao/energias-renovaveis",
+    "slug": "energias_renovaveis"
+  },
+  {
+    "nome": "Engenharia Ambiental e Sanitária",
+    "url": "https://unifor.br/web/graduacao/engenharia-ambiental",
+    "slug": "engenharia_ambiental_e_sanitaria"
+  },
+  {
+    "nome": "Engenharia de Controle e Automação",
+    "url": "https://unifor.br/web/graduacao/engenharia-de-controle-e-automacao",
+    "slug": "engenharia_de_controle_e_automacao"
+  },
+  {
+    "nome": "Medicina",
+    "url": "https://unifor.br/web/graduacao/medicina",
+    "slug": "medicina"
+  },
+  {
+    "nome": "Biomedicina",
+    "url": "https://unifor.br/web/graduacao/biomedicina",
+    "slug": "biomedicina"
+  },
+  {
+    "nome": "Educação Física",
+    "url": "https://unifor.br/web/graduacao/educacao-fisica",
+    "slug": "educacao_fisica"
+  },
+  {
+    "nome": "Enfermagem",
+    "url": "https://unifor.br/web/graduacao/enfermagem",
+    "slug": "enfermagem"
+  },
+  {
+    "nome": "Estética e Cosmética",
+    "url": "https://unifor.br/web/graduacao/estetica-e-cosmetica",
+    "slug": "estetica_e_cosmetica"
+  },
+  {
+    "nome": "Farmácia",
+    "url": "https://unifor.br/web/graduacao/farmacia",
+    "slug": "farmacia"
+  },
+  {
+    "nome": "Fisioterapia",
+    "url": "https://unifor.br/web/graduacao/fisioterapia",
+    "slug": "fisioterapia"
+  },
+  {
+    "nome": "Fonoaudiologia",
+    "url": "https://unifor.br/web/graduacao/fonoaudiologia",
+    "slug": "fonoaudiologia"
+  },
+  {
+    "nome": "Medicina Veterinária",
+    "url": "https://unifor.br/web/graduacao/medicina-veterinaria",
+    "slug": "medicina_veterinaria"
+  },
+  {
+    "nome": "Nutrição",
+    "url": "https://unifor.br/web/graduacao/nutricao",
+    "slug": "nutricao"
+  },
+  {
+    "nome": "Odontologia",
+    "url": "https://unifor.br/web/graduacao/odontologia",
+    "slug": "odontologia"
+  },
+  {
+    "nome": "Psicologia",
+    "url": "https://unifor.br/web/graduacao/psicologia",
+    "slug": "psicologia"
+  },
+  {
+    "nome": "Terapia Ocupacional",
+    "url": "https://unifor.br/web/graduacao/terapia-ocupacional",
+    "slug": "terapia_ocupacional"
+  },
+  {
+    "nome": "Medicina",
+    "url": "https://unifor.br/web/graduacao/medicina",
+    "slug": "medicina"
+  },
+  {
+    "nome": "Análise e Desenvolvimento de Sistemas",
+    "url": "https://unifor.br/web/graduacao/analise-e-desenvolvimento-de-sistema",
+    "slug": "analise_e_desenvolvimento_de_sistemas"
+  },
+  {
+    "nome": "Arquitetura e Urbanismo",
+    "url": "https://unifor.br/web/graduacao/arquitetura-e-urbanismo",
+    "slug": "arquitetura_e_urbanismo"
+  },
+  {
+    "nome": "Ciência da Computação",
+    "url": "https://unifor.br/web/graduacao/ciencia-da-computacao",
+    "slug": "ciencia_da_computacao"
+  },
+  {
+    "nome": "Design de Interiores",
+    "url": "https://unifor.br/web/graduacao/design-de-interiores",
+    "slug": "design_de_interiores"
+  },
+  {
+    "nome": "Engenharia Civil",
+    "url": "https://unifor.br/web/graduacao/engenharia-civil",
+    "slug": "engenharia_civil"
+  },
+  {
+    "nome": "Engenharia Elétrica",
+    "url": "https://unifor.br/web/graduacao/engenharia-eletrica",
+    "slug": "engenharia_eletrica"
+  },
+  {
+    "nome": "Engenharia Mecânica",
+    "url": "https://unifor.br/web/graduacao/engenharia-mecanica",
+    "slug": "engenharia_mecanica"
+  },
+  {
+    "nome": "Engenharia da Computação",
+    "url": "https://unifor.br/web/graduacao/engenharia-da-computacao",
+    "slug": "engenharia_da_computacao"
+  },
+  {
+    "nome": "Engenharia de Produção",
+    "url": "https://unifor.br/web/graduacao/engenharia-de-producao",
+    "slug": "engenharia_de_producao"
+  },
+  {
+    "nome": "Energias Renováveis",
+    "url": "https://unifor.br/web/graduacao/energias-renovaveis",
+    "slug": "energias_renovaveis"
+  },
+  {
+    "nome": "Engenharia Ambiental e Sanitária",
+    "url": "https://unifor.br/web/graduacao/engenharia-ambiental",
+    "slug": "engenharia_ambiental_e_sanitaria"
+  },
+  {
+    "nome": "Engenharia de Controle e Automação",
+    "url": "https://unifor.br/web/graduacao/engenharia-de-controle-e-automacao",
+    "slug": "engenharia_de_controle_e_automacao"
+  },
+  {
+    "nome": "Administração",
+    "url": "https://unifor.br/web/graduacao/administracao",
+    "slug": "administracao"
+  },
+  {
+    "nome": "Cinema e Audiovisual",
+    "url": "https://unifor.br/web/graduacao/cinema-e-audiovisual",
+    "slug": "cinema_e_audiovisual"
+  },
+  {
+    "nome": "Ciências Contábeis",
+    "url": "https://unifor.br/web/graduacao/ciencias-contabeis",
+    "slug": "ciencias_contabeis"
+  },
+  {
+    "nome": "Ciências Econômicas",
+    "url": "https://unifor.br/web/graduacao/ciencias-economicas",
+    "slug": "ciencias_economicas"
+  },
+  {
+    "nome": "Comércio Exterior",
+    "url": "https://unifor.br/web/graduacao/comercio-exterior",
+    "slug": "comercio_exterior"
+  },
+  {
+    "nome": "Design",
+    "url": "https://unifor.br/web/graduacao/design-bacharelado",
+    "slug": "design"
+  },
+  {
+    "nome": "Design de Moda",
+    "url": "https://unifor.br/web/graduacao/design-de-moda",
+    "slug": "design_de_moda"
+  },
+  {
+    "nome": "Finanças",
+    "url": "https://unifor.br/web/graduacao/financas",
+    "slug": "financas"
+  },
+  {
+    "nome": "Jornalismo",
+    "url": "https://unifor.br/web/graduacao/jornalismo",
+    "slug": "jornalismo"
+  },
+  {
+    "nome": "Marketing",
+    "url": "https://unifor.br/web/graduacao/marketing",
+    "slug": "marketing"
+  },
+  {
+    "nome": "Marketing",
+    "url": "https://unifor.br/web/graduacao/marketing-bacharelado",
+    "slug": "marketing"
+  },
+  {
+    "nome": "Moda",
+    "url": "https://unifor.br/web/graduacao/moda-bacharelado",
+    "slug": "moda"
+  },
+  {
+    "nome": "Negócios",
+    "url": "https://unifor.br/web/graduacao/negocios",
+    "slug": "negocios"
+  },
+  {
+    "nome": "Publicidade e Propaganda",
+    "url": "https://unifor.br/web/graduacao/publicidade-e-propaganda",
+    "slug": "publicidade_e_propaganda"
+  },
+  {
+    "nome": "Direito",
+    "url": "https://unifor.br/web/graduacao/direito",
+    "slug": "direito"
+  }
+]

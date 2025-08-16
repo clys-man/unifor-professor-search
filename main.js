@@ -12,42 +12,30 @@ function slugify(str) {
         .replace(/^_+|_+$/g, "");
 }
 
-const curso = process.argv[2];
-if (!curso) {
-    console.error("❌ Informe o curso: node scraper.js ciencia-da-computacao");
-    process.exit(1);
+async function baixarPagina(url) {
+    console.log(`⬇ Baixando: ${url}`);
+    const resp = await fetch(url);
+    const html = await resp.text();
+    return html;
 }
 
-async function main() {
+async function processarCurso(nomeCurso, urlCurso, pastaData) {
     try {
-        const pastaData = path.join(process.cwd(), "data");
-        const pastaCurso = path.join(pastaData, slugify(curso));
-
+        const slug = slugify(nomeCurso);
+        const pastaCurso = path.join(pastaData, slug);
         fs.mkdirSync(pastaCurso, { recursive: true });
 
-        const filePrincipal = path.join(pastaCurso, "pagina_principal.html");
-
-        let html;
-        if (fs.existsSync(filePrincipal)) {
-            console.log(`📂 Usando cache da página principal (${curso})`);
-            html = fs.readFileSync(filePrincipal, "utf-8");
-        } else {
-            const url = `https://unifor.br/web/graduacao/${curso}`;
-            console.log(`⬇ Baixando página principal: ${url}`);
-            const resp = await fetch(url);
-            html = await resp.text();
-            fs.writeFileSync(filePrincipal, html, "utf-8");
-        }
+        const html = await baixarPagina(urlCurso);
 
         const $ = cheerio.load(html);
-        let professores = [];
+        let novosProfessores = [];
 
         $(".accordion.teacher").each((i, el) => {
             const nome = $(el).find(".accordion__title a").text().trim();
             const link = $(el).find("a.curriculum-lattes").attr("href") || null;
 
-            if (link) {
-                professores.push({
+            if (nome && link) {
+                novosProfessores.push({
                     nome,
                     curriculo: link,
                     htmlCurriculo: ""
@@ -55,33 +43,96 @@ async function main() {
             }
         });
 
-        console.log(`📋 Encontrados ${professores.length} professores.`);
+        console.log(`📋 Curso ${nomeCurso}: encontrados ${novosProfessores.length} professores.`);
 
-        for (let prof of professores) {
-            try {
-                console.log(`⬇ Baixando currículo de ${prof.nome}...`);
-                const pageResp = await fetch(prof.curriculo);
-                const pageHtml = await pageResp.text();
+        const outputFile = path.join(pastaCurso, "professores.json");
 
-                const $page = cheerio.load(pageHtml);
-
-                let textoLimpo = $page("body").text()
-                    .replace(/\s+/g, " ")
-                    .trim()
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "");
-
-                prof.htmlCurriculo = textoLimpo;
-            } catch (err) {
-                console.error(`❌ Erro ao processar ${prof.nome}:`, err.message);
-            }
+        let professoresExistentes = [];
+        if (fs.existsSync(outputFile)) {
+            professoresExistentes = JSON.parse(fs.readFileSync(outputFile, "utf-8"));
         }
 
-        const outputFile = path.join(pastaCurso, "professores_keywords.json");
-        fs.writeFileSync(outputFile, JSON.stringify(professores, null, 2), "utf-8");
-        console.log(`💾 Arquivo salvo: ${outputFile}`);
-    } catch (error) {
-        console.error("❌ Erro geral:", error);
+        const mapa = new Map();
+        for (const prof of professoresExistentes) {
+            mapa.set(prof.nome.toLowerCase(), prof);
+        }
+
+        // Adicionar apenas os novos professores
+        const novosNaoDuplicados = novosProfessores.filter(
+            (prof) => !mapa.has(prof.nome.toLowerCase())
+        );
+
+        // 🚀 Baixar todos os novos professores em paralelo
+        await Promise.all(
+            novosNaoDuplicados.map(async (prof) => {
+                try {
+                    console.log(`⬇ Baixando currículo de ${prof.nome}...`);
+                    const pageResp = await fetch(prof.curriculo);
+                    const pageHtml = await pageResp.text();
+
+                    const $page = cheerio.load(pageHtml);
+                    let textoLimpo = $page("body").text()
+                        .replace(/\s+/g, " ")
+                        .trim()
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "");
+
+                    prof.htmlCurriculo = textoLimpo;
+
+                    mapa.set(prof.nome.toLowerCase(), prof);
+                } catch (err) {
+                    console.error(`❌ Erro ao processar ${prof.nome}:`, err.message);
+                }
+            })
+        );
+
+        // Ordenar alfabeticamente
+        const listaFinal = Array.from(mapa.values()).sort((a, b) =>
+            a.nome.localeCompare(b.nome, "pt-BR", { sensitivity: "base" })
+        );
+
+        // Salvar
+        fs.writeFileSync(outputFile, JSON.stringify(listaFinal, null, 2), "utf-8");
+        console.log(`💾 Arquivo salvo: ${outputFile} (${listaFinal.length} professores)`);
+    } catch (err) {
+        console.error(`❌ Erro no curso ${nomeCurso}:`, err.message);
+    }
+}
+
+async function main() {
+    const pastaData = path.join(process.cwd(), "data");
+    fs.mkdirSync(pastaData, { recursive: true });
+
+    // 1. Baixar listagem de cursos
+    const urlLista = "https://unifor.br/web/graduacao/todos-os-cursos";
+    const fileLista = path.join(pastaData, "lista_cursos.html");
+    const htmlLista = await baixarPagina(urlLista, fileLista);
+
+    // 2. Extrair cursos
+    const $ = cheerio.load(htmlLista);
+    let cursos = [];
+
+    $(".cards.cards--course .card.card--shadow").each((i, el) => {
+        const nome = $(el).find("h3.card__title-course a").text().trim();
+        let href = $(el).find("h3.card__title-course a").attr("href");
+        if (href && !href.startsWith("http")) {
+            href = "https://unifor.br" + href;
+        }
+        if (nome && href) {
+            cursos.push({ nome, url: href, slug: slugify(nome) });
+        }
+    });
+
+    console.log(`📚 Encontrados ${cursos.length} cursos.`);
+
+    // 💾 Salvar cursos.json
+    const cursosFile = path.join(pastaData, "cursos.json");
+    fs.writeFileSync(cursosFile, JSON.stringify(cursos, null, 2), "utf-8");
+    console.log(`💾 Lista de cursos salva em ${cursosFile}`);
+
+    // 3. Processar cada curso
+    for (const curso of cursos) {
+        await processarCurso(curso.nome, curso.url, pastaData);
     }
 }
 
