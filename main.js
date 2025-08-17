@@ -3,15 +3,6 @@ import fs from "fs";
 import path from "path";
 import * as cheerio from "cheerio";
 
-function slugify(str) {
-    return str
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]+/g, "_")
-        .replace(/^_+|_+$/g, "");
-}
-
 async function baixarPagina(url) {
     console.log(`⬇ Baixando: ${url}`);
     const resp = await fetch(url);
@@ -19,13 +10,13 @@ async function baixarPagina(url) {
     return html;
 }
 
-async function processarCurso(nomeCurso, urlCurso, pastaData) {
+async function processarCurso(slugCurso, urlCurso, pastaData) {
     try {
-        const slug = slugify(nomeCurso);
-        const pastaCurso = path.join(pastaData, slug);
+        const pastaCurso = path.join(pastaData, slugCurso);
         fs.mkdirSync(pastaCurso, { recursive: true });
 
-        const html = await baixarPagina(urlCurso);
+        const filePrincipal = path.join(pastaCurso, "pagina_principal.html");
+        const html = await baixarPagina(urlCurso, filePrincipal);
 
         const $ = cheerio.load(html);
         let novosProfessores = [];
@@ -43,7 +34,7 @@ async function processarCurso(nomeCurso, urlCurso, pastaData) {
             }
         });
 
-        console.log(`📋 Curso ${nomeCurso}: encontrados ${novosProfessores.length} professores.`);
+        console.log(`📋 Curso ${slugCurso}: encontrados ${novosProfessores.length} professores.`);
 
         const outputFile = path.join(pastaCurso, "professores.json");
 
@@ -57,14 +48,8 @@ async function processarCurso(nomeCurso, urlCurso, pastaData) {
             mapa.set(prof.nome.toLowerCase(), prof);
         }
 
-        // Adicionar apenas os novos professores
-        const novosNaoDuplicados = novosProfessores.filter(
-            (prof) => !mapa.has(prof.nome.toLowerCase())
-        );
-
-        // 🚀 Baixar todos os novos professores em paralelo
-        await Promise.all(
-            novosNaoDuplicados.map(async (prof) => {
+        for (const prof of novosProfessores) {
+            if (!mapa.has(prof.nome.toLowerCase())) {
                 try {
                     console.log(`⬇ Baixando currículo de ${prof.nome}...`);
                     const pageResp = await fetch(prof.curriculo);
@@ -83,15 +68,13 @@ async function processarCurso(nomeCurso, urlCurso, pastaData) {
                 } catch (err) {
                     console.error(`❌ Erro ao processar ${prof.nome}:`, err.message);
                 }
-            })
-        );
+            }
+        }
 
-        // Ordenar alfabeticamente
         const listaFinal = Array.from(mapa.values()).sort((a, b) =>
             a.nome.localeCompare(b.nome, "pt-BR", { sensitivity: "base" })
         );
 
-        // Salvar
         fs.writeFileSync(outputFile, JSON.stringify(listaFinal, null, 2), "utf-8");
         console.log(`💾 Arquivo salvo: ${outputFile} (${listaFinal.length} professores)`);
     } catch (err) {
@@ -103,14 +86,13 @@ async function main() {
     const pastaData = path.join(process.cwd(), "data");
     fs.mkdirSync(pastaData, { recursive: true });
 
-    // 1. Baixar listagem de cursos
     const urlLista = "https://unifor.br/web/graduacao/todos-os-cursos";
     const fileLista = path.join(pastaData, "lista_cursos.html");
     const htmlLista = await baixarPagina(urlLista, fileLista);
 
-    // 2. Extrair cursos
     const $ = cheerio.load(htmlLista);
     let cursos = [];
+    const vistos = new Set();
 
     $(".cards.cards--course .card.card--shadow").each((i, el) => {
         const nome = $(el).find("h3.card__title-course a").text().trim();
@@ -118,21 +100,27 @@ async function main() {
         if (href && !href.startsWith("http")) {
             href = "https://unifor.br" + href;
         }
+
         if (nome && href) {
-            cursos.push({ nome, url: href, slug: slugify(nome) });
+            const slug = href.split("/").filter(Boolean).pop();
+
+            if (!vistos.has(slug)) {
+                cursos.push({ nome, url: href, slug, slug: slug });
+                vistos.add(slug);
+            }
         }
     });
 
+    cursos.sort((a, b) => a.nome.localeCompare(b.nome, "pt", { sensitivity: "base" }));
+
     console.log(`📚 Encontrados ${cursos.length} cursos.`);
 
-    // 💾 Salvar cursos.json
     const cursosFile = path.join(pastaData, "cursos.json");
     fs.writeFileSync(cursosFile, JSON.stringify(cursos, null, 2), "utf-8");
     console.log(`💾 Lista de cursos salva em ${cursosFile}`);
 
-    // 3. Processar cada curso
     for (const curso of cursos) {
-        await processarCurso(curso.nome, curso.url, pastaData);
+        await processarCurso(curso.slug, curso.url, pastaData);
     }
 }
 

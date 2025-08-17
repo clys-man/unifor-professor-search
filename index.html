@@ -254,7 +254,6 @@
           if (!response.ok) throw new Error("Erro ao carregar cursos");
           return await response.json();
         } catch (error) {
-          console.error("❌ Erro ao carregar cursos.json", error);
           return [];
         }
       }
@@ -326,7 +325,6 @@
       }
 
       (async () => {
-        // 🔹 Carregar cursos dinamicamente
         const cursos = await carregarCursos();
         const select = document.getElementById("curso");
 
