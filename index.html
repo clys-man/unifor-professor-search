@@ -1,374 +1,398 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Professores - Busca por Palavra-chave</title>
-    <style>
-      :root {
-        --bg-color: #f7f7f7;
-        --text-color: #333;
-        --card-bg: #fff;
-        --input-bg: #fff;
-        --border-color: #ddd;
-        --highlight-color: yellow;
-        --link-color: #007bff;
-      }
 
-      body.dark {
-        --bg-color: #1e1e1e;
-        --text-color: #ddd;
-        --card-bg: #2a2a2a;
-        --input-bg: #333;
-        --border-color: #444;
-        --highlight-color: #ffcc00;
-        --link-color: #4da3ff;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professores - Busca por Palavra-chave</title>
+  <style>
+    :root {
+      --bg-color: #f7f7f7;
+      --text-color: #333;
+      --card-bg: #fff;
+      --input-bg: #fff;
+      --border-color: #ddd;
+      --highlight-color: yellow;
+      --link-color: #007bff;
+    }
 
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-      }
+    body.dark {
+      --bg-color: #1e1e1e;
+      --text-color: #ddd;
+      --card-bg: #2a2a2a;
+      --input-bg: #333;
+      --border-color: #444;
+      --highlight-color: #ffcc00;
+      --link-color: #4da3ff;
+    }
 
-      body {
-        font-family: "Segoe UI", Arial, sans-serif;
-        max-width: 900px;
-        margin: auto;
-        padding: 20px;
-        background: var(--bg-color);
-        color: var(--text-color);
-        transition:
-          background 0.3s,
-          color 0.3s;
-      }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-      header {
-        background-color: var(--card-bg);
-        padding: 1rem;
-        text-align: center;
-        border-bottom: 1px solid var(--border-color);
-        margin-bottom: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition:
+        background 0.3s,
+        color 0.3s;
+    }
 
-      h1 {
-        margin: 0;
-        font-size: 1.8rem;
-      }
+    header {
+      background-color: var(--card-bg);
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
 
-      select,
-      input {
-        width: 100%;
-        padding: 15px;
-        font-size: 16px;
-        margin-bottom: 12px;
-        border: 1px solid var(--border-color);
-        border-radius: 5px;
-        background: var(--input-bg);
-        color: var(--text-color);
-        transition:
-          background 0.3s,
-          color 0.3s,
-          border-color 0.3s;
-      }
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
 
-      .search-examples {
-        margin-top: -6px;
-        margin-bottom: 15px;
-        font-size: 14px;
-        color: #777;
-      }
+    select,
+    input {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      background: var(--input-bg);
+      color: var(--text-color);
+      transition:
+        background 0.3s,
+        color 0.3s,
+        border-color 0.3s;
+    }
 
-      body.dark .search-examples {
-        color: #aaa;
-      }
+    .search-examples {
+      margin-top: -6px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      color: #777;
+    }
 
-      .professor {
-        background: var(--card-bg);
-        padding: 15px;
-        margin-bottom: 15px;
-        border-radius: 8px;
-        border: 1px solid var(--border-color);
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-        transition:
-          background 0.3s,
-          border-color 0.3s;
-      }
+    body.dark .search-examples {
+      color: #aaa;
+    }
 
-      .professor h2 {
-        margin: 0 0 5px;
-        font-size: 18px;
-      }
+    .professor {
+      background: var(--card-bg);
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      transition:
+        background 0.3s,
+        border-color 0.3s;
+    }
 
-      .professor a {
-        color: var(--link-color);
-        text-decoration: none;
-      }
+    .professor h2 {
+      margin: 0 0 5px;
+      font-size: 18px;
+    }
 
-      .professor a:hover {
-        text-decoration: underline;
-      }
+    .professor a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
 
-      .highlight {
-        background: var(--highlight-color);
-        font-weight: bold;
-        padding: 0 2px;
-        border-radius: 3px;
-      }
+    .professor a:hover {
+      text-decoration: underline;
+    }
 
-      .contexto {
-        font-size: 14px;
-        color: var(--text-color);
-        margin-top: 5px;
-        background: rgba(0, 0, 0, 0.05);
-        padding: 5px;
-        border-radius: 3px;
-      }
+    .highlight {
+      background: var(--highlight-color);
+      font-weight: bold;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
 
-      body.dark .contexto {
-        background: rgba(255, 255, 255, 0.05);
-      }
+    .contexto {
+      font-size: 14px;
+      color: var(--text-color);
+      margin-top: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      padding: 5px;
+      border-radius: 3px;
+    }
 
-      #toggle-theme {
-        background: none;
-        border: 1px solid var(--border-color);
-        border-radius: 5px;
-        padding: 5px 10px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        color: var(--text-color);
-        background-color: var(--input-bg);
-        margin-top: 10px;
-        transition:
-          background 0.3s,
-          color 0.3s,
-          border-color 0.3s;
-      }
+    body.dark .contexto {
+      background: rgba(255, 255, 255, 0.05);
+    }
 
-      #toggle-theme:hover {
-        opacity: 0.8;
-      }
-    </style>
-  </head>
+    #toggle-theme {
+      background: none;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      background-color: var(--input-bg);
+      margin-top: 10px;
+      transition:
+        background 0.3s,
+        color 0.3s,
+        border-color 0.3s;
+    }
 
-  <body>
-    <header>
-      <h1>Unifor - Buscar Professores</h1>
-      <div
-        style="
+    #toggle-theme:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Unifor - Buscar Professores</h1>
+    <div style="
           max-width: 800px;
           margin: 0 auto;
           font-size: 0.95rem;
           margin-bottom: 1rem;
-        "
-      >
-        <p>
-          Este sistema permite buscar professores da
-          <a href="https://unifor.br/" target="_blank"
-            >Universidade de Fortaleza (UNIFOR)</a
-          >
-          e suas áreas de atuação a partir de palavras-chave extraídas dos
-          currículos Lattes. Basta selecionar um curso, digitar uma palavra ou
-          expressão no campo de busca e visualizar os resultados filtrados.
-        </p>
-      </div>
-      <p style="margin: 0.3rem 0 0 0; font-size: 0.9rem">
-        Desenvolvido por
-        <strong>
-          <a href="https://github.com/clys-man" target="_blank">Clysman</a>
-        </strong>
-        —
-        <a
-          href="https://github.com/clys-man/unifor-professor-search"
-          target="_blank"
-          >GitHub</a
-        >
+        ">
+      <p>
+        Este sistema permite buscar professores da
+        <a href="https://unifor.br/" target="_blank">Universidade de Fortaleza (UNIFOR)</a>
+        e suas áreas de atuação a partir de palavras-chave extraídas dos
+        currículos Lattes. Basta selecionar um curso, digitar uma palavra ou
+        expressão no campo de busca e visualizar os resultados filtrados.
       </p>
-      <button id="toggle-theme">🌙 Modo Escuro</button>
-    </header>
-
-    <label for="curso">Selecione o curso:</label>
-    <select id="curso">
-      <option value="">-------</option>
-    </select>
-
-    <input
-      type="text"
-      id="search"
-      placeholder="Digite palavras-chave separadas por vírgula..."
-    />
-    <div
-      class="search-examples"
-      style="padding: 0.5rem; border-bottom: 1px solid #ddd"
-    >
-      Exemplos: <em>estrutura de dados</em>, <em>programação</em>,
-      <em>redes</em>, <em>inteligência artificial</em>
     </div>
+    <p style="margin: 0.3rem 0 0 0; font-size: 0.9rem">
+      Desenvolvido por
+      <strong>
+        <a href="https://github.com/clys-man" target="_blank">Clysman</a>
+      </strong>
+      —
 
-    <div id="lista-professores"></div>
+      href="https://github.com/clys-man/unifor-professor-search"
+      target="_blank"
+      >GitHub</a>
+    </p>
+    <button id="toggle-theme">🌙 Modo Escuro</button>
+  </header>
 
-    <footer
-      style="
+  <label for="curso">Selecione o curso:</label>
+  <select id="curso">
+    <option value="">-------</option>
+  </select>
+
+  <input type="text" id="search" placeholder="Digite palavras-chave separadas por vírgula..." />
+  <div class="search-examples" style="padding: 0.5rem; border-bottom: 1px solid #ddd">
+    Exemplos: <em>estrutura de dados</em>, <em>programação</em>,
+    <em>redes</em>, <em>inteligência artificial</em>
+  </div>
+
+  <div id="lista-professores"></div>
+
+  <footer style="
         margin-top: 2rem;
         padding: 1rem;
         text-align: center;
         font-size: 0.85rem;
         color: #777;
-      "
-    >
-      <p>
-        <strong>Aviso:</strong> Este site não possui qualquer vínculo com a
-        <a href="https://unifor.br/" target="_blank"
-          >Universidade de Fortaleza (UNIFOR)</a
-        >. Todo o conteúdo é de caráter informativo.
-      </p>
-    </footer>
+      ">
+    <p>
+      <strong>Aviso:</strong> Este site não possui qualquer vínculo com a
+      <a href="https://unifor.br/" target="_blank">Universidade de Fortaleza (UNIFOR)</a>. Todo o conteúdo é de caráter
+      informativo.
+    </p>
+  </footer>
 
-    <script>
-      const BASE_URL =
-        "https://raw.githubusercontent.com/clys-man/unifor-professor-search/refs/heads/main/data";
+  <script>
+    const BASE_URL =
+      "https://raw.githubusercontent.com/clys-man/unifor-professor-search/refs/heads/main/data";
 
-      function normalizarTexto(txt) {
-        return txt
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase();
+    function normalizarTexto(txt) {
+      return txt
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+    }
+
+    function termoParaRegex(termo) {
+      return termo
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/a/g, "[aàáâãä]")
+        .replace(/e/g, "[eèéêë]")
+        .replace(/i/g, "[iìíîï]")
+        .replace(/o/g, "[oòóôõö]")
+        .replace(/u/g, "[uùúûü]")
+        .replace(/c/g, "[cç]");
+    }
+
+    async function carregarCursos() {
+      try {
+        const response = await fetch(`${BASE_URL}/cursos.json`);
+        if (!response.ok) throw new Error("Erro ao carregar cursos");
+        return await response.json();
+      } catch (error) {
+        return [];
       }
+    }
 
-      function termoParaRegex(termo) {
-        return termo
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .replace(/a/g, "[aàáâãä]")
-          .replace(/e/g, "[eèéêë]")
-          .replace(/i/g, "[iìíîï]")
-          .replace(/o/g, "[oòóôõö]")
-          .replace(/u/g, "[uùúûü]")
-          .replace(/c/g, "[cç]");
+    async function carregarProfessores(cursoSlug) {
+      if (!cursoSlug) return null;
+
+      const url = `${BASE_URL}/${cursoSlug}/professores.json`;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) return null;
+        return await response.json();
+      } catch (error) {
+        return null;
       }
+    }
 
-      async function carregarCursos() {
-        try {
-          const response = await fetch(`${BASE_URL}/cursos.json`);
-          if (!response.ok) throw new Error("Erro ao carregar cursos");
-          return await response.json();
-        } catch (error) {
-          return [];
+    function destacarTermo(texto, termos) {
+      if (!termos.length) return texto;
+      const pattern = termos.map((t) => termoParaRegex(t)).join("|");
+      const regex = new RegExp(`(${pattern})`, "gi");
+      return texto.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function extrairContexto(texto, termos, tamanho = 80) {
+      texto = texto.replace(/\s+/g, " ");
+      const textoNormalizado = normalizarTexto(texto);
+      for (let termo of termos) {
+        const idx = textoNormalizado.indexOf(normalizarTexto(termo));
+        if (idx !== -1) {
+          const start = Math.max(0, idx - tamanho / 2);
+          const end = Math.min(texto.length, idx + tamanho / 2);
+          return destacarTermo(texto.substring(start, end), termos);
         }
       }
+      return "";
+    }
 
-      async function carregarProfessores(cursoSlug) {
-        if (!cursoSlug) return null;
+    function calcularPeso(professor, termos) {
+      if (!termos.length) return 0;
 
-        const url = `${BASE_URL}/${cursoSlug}/professores.json`;
-        try {
-          const response = await fetch(url);
-          if (!response.ok) return null;
-          return await response.json();
-        } catch (error) {
-          return null;
+      let peso = 0;
+      const nomeNormalizado = normalizarTexto(professor.nome);
+      const htmlLimpo = professor.htmlCurriculo.replace(/<[^>]+>/g, " ");
+      const textoNormalizado = normalizarTexto(htmlLimpo);
+
+      termos.forEach((termo) => {
+        const termoNormalizado = normalizarTexto(termo);
+
+        if (nomeNormalizado.includes(termoNormalizado)) {
+          peso += 100;
         }
+
+        if (textoNormalizado.includes(termoNormalizado)) {
+          peso += 1;
+        }
+      });
+
+      return peso;
+    }
+
+    function renderizarLista(professores, termos = []) {
+      const lista = document.getElementById("lista-professores");
+      lista.innerHTML = "";
+      if (!professores || !professores.length) {
+        lista.innerHTML = "<p><em>Nenhum professor encontrado.</em></p>";
+        return;
       }
 
-      function destacarTermo(texto, termos) {
-        if (!termos.length) return texto;
-        const pattern = termos.map((t) => termoParaRegex(t)).join("|");
-        const regex = new RegExp(`(${pattern})`, "gi");
-        return texto.replace(regex, '<span class="highlight">$1</span>');
+      let professoresFiltrados = professores
+        .map((prof) => ({
+          ...prof,
+          peso: calcularPeso(prof, termos),
+        }))
+        .filter((prof) => {
+          if (!termos.length) return true;
+          return prof.peso > 0;
+        })
+        .sort((a, b) => b.peso - a.peso); // Ordenar por peso decrescente
+
+      if (!professoresFiltrados.length) {
+        lista.innerHTML = "<p><em>Nenhum professor encontrado.</em></p>";
+        return;
       }
 
-      function extrairContexto(texto, termos, tamanho = 80) {
-        texto = texto.replace(/\s+/g, " ");
-        const textoNormalizado = normalizarTexto(texto);
-        for (let termo of termos) {
-          const idx = textoNormalizado.indexOf(normalizarTexto(termo));
-          if (idx !== -1) {
-            const start = Math.max(0, idx - tamanho / 2);
-            const end = Math.min(texto.length, idx + tamanho / 2);
-            return destacarTermo(texto.substring(start, end), termos);
-          }
-        }
-        return "";
-      }
+      professoresFiltrados.forEach((prof) => {
+        const div = document.createElement("div");
+        div.className = "professor";
 
-      function renderizarLista(professores, termos = []) {
-        const lista = document.getElementById("lista-professores");
-        lista.innerHTML = "";
-        if (!professores || !professores.length) {
-          lista.innerHTML = "<p><em>Nenhum professor encontrado.</em></p>";
-          return;
-        }
-        professores.forEach((prof) => {
-          if (termos.length) {
-            const htmlLimpo = prof.htmlCurriculo.replace(/<[^>]+>/g, " ");
-            const textoNormalizado = normalizarTexto(htmlLimpo);
-            if (
-              !termos.some((t) => textoNormalizado.includes(normalizarTexto(t)))
-            )
-              return;
-          }
-          const div = document.createElement("div");
-          div.className = "professor";
-          const htmlLimpo = prof.htmlCurriculo.replace(/<[^>]+>/g, " ");
-          div.innerHTML = `
+        const nomeNormalizado = normalizarTexto(prof.nome);
+        const temNoNome = termos.some((t) =>
+          nomeNormalizado.includes(normalizarTexto(t))
+        );
+
+        const htmlLimpo = prof.htmlCurriculo.replace(/<[^>]+>/g, " ");
+        div.innerHTML = `
             <h2>${destacarTermo(prof.nome, termos)}</h2>
             <p><a href="${prof.curriculo}" target="_blank">Currículo Lattes</a></p>
-            ${
-              termos.length
-                ? `<div class="contexto">${extrairContexto(htmlLimpo, termos)}</div>`
-                : ""
-            }
+            ${termos.length
+            ? `<div class="contexto">${extrairContexto(htmlLimpo, termos)}</div>`
+            : ""
+          }
           `;
-          lista.appendChild(div);
+        lista.appendChild(div);
+      });
+    }
+
+    (async () => {
+      const cursos = await carregarCursos();
+      const select = document.getElementById("curso");
+
+      cursos.forEach((c) => {
+        const opt = document.createElement("option");
+        opt.value = c.slug;
+        opt.textContent = c.nome;
+        select.appendChild(opt);
+      });
+
+      let cursoAtual = select.value;
+      let professores = await carregarProfessores(cursoAtual);
+      renderizarLista(professores);
+
+      select.addEventListener("change", async (e) => {
+        cursoAtual = e.target.value;
+        professores = await carregarProfessores(cursoAtual);
+        const termos = document
+          .getElementById("search")
+          .value.split(",")
+          .map((t) => t.trim())
+          .filter(Boolean);
+        renderizarLista(professores, termos);
+      });
+
+      document.getElementById("search").addEventListener("input", (e) => {
+        const termos = e.target.value
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean);
+        renderizarLista(professores, termos);
+      });
+
+      document
+        .getElementById("toggle-theme")
+        .addEventListener("click", () => {
+          document.body.classList.toggle("dark");
+          document.getElementById("toggle-theme").textContent =
+            document.body.classList.contains("dark")
+              ? "☀️ Modo Claro"
+              : "🌙 Modo Escuro";
         });
-      }
+    })();
+  </script>
+</body>
 
-      (async () => {
-        const cursos = await carregarCursos();
-        const select = document.getElementById("curso");
-
-        cursos.forEach((c) => {
-          const opt = document.createElement("option");
-          opt.value = c.slug;
-          opt.textContent = c.nome;
-          select.appendChild(opt);
-        });
-
-        let cursoAtual = select.value;
-        let professores = await carregarProfessores(cursoAtual);
-        renderizarLista(professores);
-
-        select.addEventListener("change", async (e) => {
-          cursoAtual = e.target.value;
-          professores = await carregarProfessores(cursoAtual);
-          const termos = document
-            .getElementById("search")
-            .value.split(",")
-            .map((t) => t.trim())
-            .filter(Boolean);
-          renderizarLista(professores, termos);
-        });
-
-        document.getElementById("search").addEventListener("input", (e) => {
-          const termos = e.target.value
-            .split(",")
-            .map((t) => t.trim())
-            .filter(Boolean);
-          renderizarLista(professores, termos);
-        });
-
-        document
-          .getElementById("toggle-theme")
-          .addEventListener("click", () => {
-            document.body.classList.toggle("dark");
-            document.getElementById("toggle-theme").textContent =
-              document.body.classList.contains("dark")
-                ? "☀️ Modo Claro"
-                : "🌙 Modo Escuro";
-          });
-      })();
-    </script>
-  </body>
 </html>
