@@ -7,16 +7,6 @@
   <title>Professores - Busca por Palavra-chave</title>
   <style>
     :root {
-      --bg-color: #f7f7f7;
-      --text-color: #333;
-      --card-bg: #fff;
-      --input-bg: #fff;
-      --border-color: #ddd;
-      --highlight-color: yellow;
-      --link-color: #007bff;
-    }
-
-    body.dark {
       --bg-color: #1e1e1e;
       --text-color: #ddd;
       --card-bg: #2a2a2a;
@@ -79,10 +69,6 @@
       margin-top: -6px;
       margin-bottom: 15px;
       font-size: 14px;
-      color: #777;
-    }
-
-    body.dark .search-examples {
       color: #aaa;
     }
 
@@ -123,33 +109,17 @@
       font-size: 14px;
       color: var(--text-color);
       margin-top: 5px;
-      background: rgba(0, 0, 0, 0.05);
+      background: rgba(255, 255, 255, 0.05);
       padding: 5px;
       border-radius: 3px;
     }
 
-    body.dark .contexto {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    #toggle-theme {
-      background: none;
-      border: 1px solid var(--border-color);
-      border-radius: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      color: var(--text-color);
-      background-color: var(--input-bg);
-      margin-top: 10px;
-      transition:
-        background 0.3s,
-        color 0.3s,
-        border-color 0.3s;
-    }
-
-    #toggle-theme:hover {
-      opacity: 0.8;
+    footer {
+      margin-top: 2rem;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #777;
     }
   </style>
 </head>
@@ -177,7 +147,6 @@
         <a href="https://github.com/clys-man" target="_blank">Clysman</a>
       </strong>
     </p>
-    <button id="toggle-theme">🌙 Modo Escuro</button>
   </header>
 
   <label for="curso">Selecione o curso:</label>
@@ -193,13 +162,7 @@
 
   <div id="lista-professores"></div>
 
-  <footer style="
-        margin-top: 2rem;
-        padding: 1rem;
-        text-align: center;
-        font-size: 0.85rem;
-        color: #777;
-      ">
+  <footer>
     <p>
       <strong>Aviso:</strong> Este site não possui qualquer vínculo com a
       <a href="https://unifor.br/" target="_blank">Universidade de Fortaleza (UNIFOR)</a>. Todo o conteúdo é de caráter
@@ -376,16 +339,6 @@
           .filter(Boolean);
         renderizarLista(professores, termos);
       });
-
-      document
-        .getElementById("toggle-theme")
-        .addEventListener("click", () => {
-          document.body.classList.toggle("dark");
-          document.getElementById("toggle-theme").textContent =
-            document.body.classList.contains("dark")
-              ? "☀️ Modo Claro"
-              : "🌙 Modo Escuro";
-        });
     })();
   </script>
 </body>
