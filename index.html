@@ -176,11 +176,6 @@
       <strong>
         <a href="https://github.com/clys-man" target="_blank">Clysman</a>
       </strong>
-      —
-
-      href="https://github.com/clys-man/unifor-professor-search"
-      target="_blank"
-      >GitHub</a>
     </p>
     <button id="toggle-theme">🌙 Modo Escuro</button>
   </header>
@@ -332,7 +327,7 @@
 
         const nomeNormalizado = normalizarTexto(prof.nome);
         const temNoNome = termos.some((t) =>
-          nomeNormalizado.includes(normalizarTexto(t))
+          nomeNormalizado.includes(normalizarTexto(t)),
         );
 
         const htmlLimpo = prof.htmlCurriculo.replace(/<[^>]+>/g, " ");
